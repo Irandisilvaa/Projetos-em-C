@@ -1,3 +1,12 @@
+/*
+Este programa em C gerencia servi√ßos de uma oficina mec√¢nica especializada em motos.
+Ele permite solicitar servi√ßos, iniciar servi√ßos, remover solicita√ß√µes, 
+consultar solicita√ß√µes em aberto, concluir servi√ßos e encerrar o expediente, calculando o valor total obtido com os servi√ßos realizados.
+O usu√°rio interage com o programa atrav√©s de um menu de op√ß√µes.
+Os dados das motos e dos servi√ßos s√£o armazenados em um vetor de estruturas. 
+O programa valida as entradas do usu√°rio e realiza as opera√ß√µes de acordo com as escolhas feitas.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -42,24 +51,24 @@ void SolicitaServico() {
 
 void IniciaServico() {
     char P[7];
-    printf("Placa da moto para iniciar serviÁo: ");
+    printf("Placa da moto para iniciar servi√ßo: ");
     scanf(" %[^\n]s", P);
-    int Pos = -1; //posiÁ„o da moto P no vetor
-    //busca da moto para iniciar serviÁo
+    int Pos = -1; //posi√ß√£o da moto P no vetor
+    //busca da moto para iniciar servi√ßo
     for (int Cont = 0; Cont <= Quant; Cont++)
         if (strcmp(VZonda[Cont].Placa, P) == 0)
             Pos = Cont;
     if (Pos == -1)
-        printf("Moto n„o cadastrada!");
+        printf("Moto n√£o cadastrada!");
     else {
         printf("\n Cliente %d: %s", Pos + 1, VZonda[Pos].Nome);
         printf("\n Modelo: %s", VZonda[Pos].Modelo);
         printf("\n Placa: %s", VZonda[Pos].Placa);
         printf("\n Defeito: %s", VZonda[Pos].Defeito);
         VZonda[Pos].Status = '1';
-        printf("\n Status: %c-SERVI«O INICIADO!", VZonda[Pos].Status);
+        printf("\n Status: %c-SERVI√áO INICIADO!", VZonda[Pos].Status);
         if (VZonda[Pos].Preco == 0)
-            printf("\n Preco: N√O DEFINIDO");
+            printf("\n Preco: N√ÉO DEFINIDO");
         else
             printf("\n Preco: %.2f", VZonda[Pos].Preco);
     }
@@ -67,21 +76,21 @@ void IniciaServico() {
 
 void RemoverSolicitacao() {
     char P[7];
-    printf("Placa da moto para remover solicitaÁ„o: ");
+    printf("Placa da moto para remover solicita√ß√£o: ");
     scanf(" %[^\n]s", P);
-    int Pos = -1; //posiÁ„o da moto P no vetor
-    //busca da moto para remover solicitaÁ„o
+    int Pos = -1; //posi√ß√£o da moto P no vetor
+    //busca da moto para remover solicita√ß√£o
     for (int Cont = 0; Cont <= Quant; Cont++)
         if (strcmp(VZonda[Cont].Placa, P) == 0)
             Pos = Cont;
     if (Pos == -1)
-        printf("Moto n„o cadastrada!");
+        printf("Moto n√£o cadastrada!");
     else {
         if (VZonda[Pos].Status == '0') {
             VZonda[Pos].Status = '2';
-            printf("SolicitaÁ„o removida para a moto com placa %s", VZonda[Pos].Placa);
+            printf("Solicita√ß√£o removida para a moto com placa %s", VZonda[Pos].Placa);
         } else {
-            printf("O serviÁo para esta moto j· foi iniciado ou concluÌdo.");
+            printf("O servi√ßo para esta moto j√° foi iniciado ou conclu√≠do.");
         }
     }
 }
@@ -89,18 +98,18 @@ void RemoverSolicitacao() {
 void ConsultarSolicitacoes() {
     printf("\n\n >>> Motos Zonda <<< \n\n");
     if (Quant == -1)
-        printf("N„o h· serviÁos cadastrados.");
+        printf("N√£o h√° servi√ßos cadastrados.");
     else {
-        int encontrou = 0; // Vari·vel para indicar se pelo menos uma solicitaÁ„o foi encontrada
+        int encontrou = 0; // Vari√°vel para indicar se pelo menos uma solicita√ß√£o foi encontrada
         for (int Cont = 0; Cont <= Quant; Cont++) {
-            if (VZonda[Cont].Status == '0' || VZonda[Cont].Status == '1') { // AlteraÁ„o aqui
+            if (VZonda[Cont].Status == '0' || VZonda[Cont].Status == '1') { // Altera√ß√£o aqui
                 encontrou = 1;
                 printf("\n Cliente %d: %s", Cont + 1, VZonda[Cont].Nome);
                 printf("\n Modelo: %s", VZonda[Cont].Modelo);
                 printf("\n Placa: %s", VZonda[Cont].Placa);
                 printf("\n Defeito: %s", VZonda[Cont].Defeito);
-                if (VZonda[Cont].Status== '1') printf("\n Status:SERVI«O INICIADO!");
-                else if (VZonda[Cont].Status== '0') printf("\n Status:SERVI«O N√O INICIADO!");
+                if (VZonda[Cont].Status== '1') printf("\n Status:SERVI√áO INICIADO!");
+                else if (VZonda[Cont].Status== '0') printf("\n Status:SERVI√áO N√ÉO INICIADO!");
                 if (VZonda[Cont].Preco == 0)
                     printf("\n Preco: NAO DEFINIDO");
                 else
@@ -109,7 +118,7 @@ void ConsultarSolicitacoes() {
             }
         }
         if (!encontrou)
-            printf("N„o h· serviÁos em aberto.");
+            printf("N√£o h√° servi√ßos em aberto.");
     }
 }
 
@@ -117,19 +126,19 @@ void ConsultarSolicitacoes() {
 
 void ConcluirServico() {
     char P[7];
-    printf("Placa da moto para concluir serviÁo: ");
+    printf("Placa da moto para concluir servi√ßo: ");
     scanf(" %[^\n]s", P);
-    int Pos = -1; //posiÁ„o da moto P no vetor
-    //busca da moto para concluir serviÁo
+    int Pos = -1; //posi√ß√£o da moto P no vetor
+    //busca da moto para concluir servi√ßo
     for (int Cont = 0; Cont <= Quant; Cont++)
         if (strcmp(VZonda[Cont].Placa, P) == 0)
             Pos = Cont;
     if (Pos == -1)
-        printf("Moto n„o cadastrada!");
+        printf("Moto n√£o cadastrada!");
     else {
         if (VZonda[Pos].Status == '1') {
             float preco, troco, valorPago;
-            printf("Digite o preÁo final do serviÁo: ");
+            printf("Digite o pre√ßo final do servi√ßo: ");
             scanf("%f", &preco);
             do {
                 printf("Digite o valor pago por %s: ", VZonda[Pos].Nome);
@@ -143,9 +152,9 @@ void ConcluirServico() {
             printf("Troco: R$ %.2f\n", troco);
             VZonda[Pos].Preco = preco;
             VZonda[Pos].Status = '3';
-            printf("ServiÁo concluÌdo para a moto com placa %s\n", VZonda[Pos].Placa);
+            printf("Servi√ßo conclu√≠do para a moto com placa %s\n", VZonda[Pos].Placa);
         } else {
-            printf("O serviÁo para esta moto ainda n„o foi iniciado ou j· foi concluÌdo.\n");
+            printf("O servi√ßo para esta moto ainda n√£o foi iniciado ou j√° foi conclu√≠do.\n");
         }
     }
 }
@@ -153,7 +162,7 @@ void ConcluirServico() {
 
 void EncerrarExpediente() {
     printf("\n\n >>> Motos Zonda <<< \n\n");
-    printf("ServiÁos realizados:\n");
+    printf("Servi√ßos realizados:\n");
     float total = 0;
     for (int Cont = 0; Cont <= Quant; Cont++) {
         if (VZonda[Cont].Status == '3') {
@@ -166,7 +175,7 @@ void EncerrarExpediente() {
             total += VZonda[Cont].Preco;
         }
     }
-    printf("\n\nValor total obtido com os serviÁos: %.2f\n", total);
+    printf("\n\nValor total obtido com os servi√ßos: %.2f\n", total);
 }
 
 int main() {
@@ -185,7 +194,7 @@ int main() {
         printf("Digite a opcao desejada: ");
         scanf("%d", &Opcao);
         while (Opcao<1 || Opcao >7){
-            printf ("OpÁ„o invalida!\nPor favor Digite uma opÁ„o v·lida: ");
+            printf ("Op√ß√£o invalida!\nPor favor Digite uma op√ß√£o v√°lida: ");
             scanf("%d",&Opcao);
             continue;
         }
@@ -209,7 +218,7 @@ int main() {
             case 6:
                 EncerrarExpediente();
                 break;
-            case 7: printf ("Saindo do Programa! \nAtÈ ja :)");
+            case 7: printf ("Saindo do Programa! \nAt√© ja :)");
                 break;
         }
     } while (Opcao != 7);
