@@ -1,3 +1,14 @@
+/*
+Este √© um programa em C que gerencia informa√ß√µes sobre diferentes modelos de freezers.
+Ele permite visualizar uma lista de freezers com suas caracter√≠sticas,
+exibir os dados de uma caracter√≠stica espec√≠fica, exibir todos os dados
+de um modelo de freezer, alterar dados de um freezer espec√≠fico e encontrar
+o melhor freezer em diferentes crit√©rios, como capacidade, garantia, economia e
+temperatura. O programa apresenta um menu 
+interativo para o usu√°rio selecionar as opera√ß√µes desejadas e utiliza uma 
+estrutura de dados ModeloFreezer para armazenar as informa√ß√µes dos freezers.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,7 +52,7 @@ void ExibeColuna(ModeloFreezer freezers[], int tamanho, int coluna) {
         printf("Economia: %.1f\n", freezers[coluna - 1].economia);
         printf("Temperatura: %.1f\n", freezers[coluna - 1].temperatura);
     } else {
-        printf("modelo inv·lido.\n");
+        printf("modelo inv√°lido.\n");
     }
 }
 
@@ -205,7 +216,7 @@ int main() {
         int Op;
         scanf("%d", &Op);
         while (Op<1 || Op >9){
-            printf ("OpÁ„o invalida!\nPor favor Digite uma opÁ„o v·lida: ");
+            printf ("Op√ß√£o invalida!\nPor favor Digite uma op√ß√£o v√°lida: ");
             scanf("%d",&Op);
             continue;
         }
@@ -222,7 +233,7 @@ int main() {
                 ExibeLinha(freezers, 6, caracteristica);
                 system("pause");
             } else {
-                printf("OpÁ„o inv·lida!\n");
+                printf("Op√ß√£o inv√°lida!\n");
                 system("pause");
             }
             break;
@@ -234,7 +245,7 @@ int main() {
                 ExibeColuna(freezers, 6, modelo);
                 system("pause");
             } else {
-                printf("OpÁ„o inv·lida!\n");
+                printf("Op√ß√£o inv√°lida!\n");
                 system("pause");
             }
             break;
@@ -251,11 +262,11 @@ int main() {
                     ExibeLista(freezers, 6);
                     system("pause");
                 } else {
-                    printf("OpÁ„o inv·lida para a caracteristica!\n");
+                    printf("Op√ß√£o inv√°lida para a caracteristica!\n");
                     system("pause");
                 }
             } else {
-                printf("OpÁ„o inv·lida para o freezer!\n");
+                printf("Op√ß√£o inv√°lida para o freezer!\n");
                 system("pause");
             }
             break;
