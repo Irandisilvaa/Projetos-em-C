@@ -1,3 +1,11 @@
+/*Este √© um programa em C para gerenciamento de farm√°cias.
+Ele permite incluir, excluir, alterar, consultar e listar f√°rmacos, armazenando seus dados em um arquivo bin√°rio.
+As informa√ß√µes de cada f√°rmaco incluem nome, pre√ßo e quantidade em estoque. 
+O programa oferece um menu interativo para o usu√°rio escolher entre as opera√ß√µes dispon√≠veis. 
+As entradas s√£o validadas e h√° verifica√ß√µes para evitar duplicatas de f√°rmacos durante a inclus√£o e para marcar registros logicamente exclu√≠dos.
+
+
+*/
 #include <stdio.h>
 #include <stdlib.h>  
 #include <ctype.h> 
@@ -38,25 +46,25 @@ void Incluir()
 
     ArqFarma = fopen("Farmacos.dat", "a+b");
     if (ArqFarma == NULL) {
-        printf("Erro ao abrir o arquivo para inclus„o!\n");
+        printf("Erro ao abrir o arquivo para inclus√£o!\n");
         return;
     }
 
-    // Melhoria 1 - Verificar se o f·rmaco j· est· presente no arquivo
+    // Melhoria 1 - Verificar se o f√°rmaco j√° est√° presente no arquivo
     fseek(ArqFarma, 0, SEEK_SET);
     while (fread(&RgFarma, Tamanho, 1, ArqFarma) == 1) {
         if (strcmp(RgFarma.Nome, Farmaco) == 0) {
-            printf("Este f·rmaco j· est· cadastrado!\n");
+            printf("Este f√°rmaco j√° est√° cadastrado!\n");
             fclose(ArqFarma);
             system("pause");
             return;
         }
     }
    do {
-        printf("PreÁo: ");
+        printf("Pre√ßo: ");
         scanf("%f", &RgFarma.Preco);
         if (RgFarma.Preco < 0) {
-            printf("PreÁo n„o pode ser negativo. Por favor, insira um valor v·lido.\n");
+            printf("Pre√ßo n√£o pode ser negativo. Por favor, insira um valor v√°lido.\n");
         }
     } while (RgFarma.Preco < 0);
 
@@ -64,7 +72,7 @@ void Incluir()
         printf("Estoque: ");
         scanf("%d", &RgFarma.QEstoque);
         if (RgFarma.QEstoque < 0) {
-            printf("Quantidade em estoque n„o pode ser negativa. Por favor, insira um valor v·lido.\n");
+            printf("Quantidade em estoque n√£o pode ser negativa. Por favor, insira um valor v√°lido.\n");
         }
     } while (RgFarma.QEstoque < 0);
 
@@ -74,7 +82,7 @@ void Incluir()
     strcpy(RgFarma.Nome, Farmaco);
     fwrite(&RgFarma, Tamanho, 1, ArqFarma);
     system ("cls");
-    printf ("\nInclus„o realizada com Sucesso!\n");
+    printf ("\nInclus√£o realizada com Sucesso!\n");
     
     fclose(ArqFarma);
     system("pause");
@@ -96,7 +104,7 @@ void Excluir()
     if (TArquivo() != 0)
     {
         printf("*** excluir ***\n\n");
-        printf("Qual f·rmaco deseja excluir? ");
+        printf("Qual f√°rmaco deseja excluir? ");
         fflush(stdin);
         char Farmaco[21];
         scanf(" %[^\n]", Farmaco);
@@ -112,25 +120,25 @@ void Excluir()
                 printf("Nome: %s\n", RgFarma.Nome);
                 printf("Valor: %.2f\n", RgFarma.Preco);
                 printf("Estoque: %d\n", RgFarma.QEstoque);
-                printf("\nExclus„o realizada com sucesso!\n");
-                // Marcar a posiÁ„o do cursor antes de sobrescrever o registro
+                printf("\nExclus√£o realizada com sucesso!\n");
+                // Marcar a posi√ß√£o do cursor antes de sobrescrever o registro
                 fseek(ArqFarma, posicao * Tamanho, SEEK_SET);
                 RgFarma.Preco = -1; 
                 fwrite(&RgFarma, Tamanho, 1, ArqFarma);
                 break;
             }
-				  // Atualiza a posiÁ„o do cursor
+				  // Atualiza a posi√ß√£o do cursor
             posicao++;
         }
 
         if (Achou == 0)
-            printf("F·rmaco inexistente!\n\n");
+            printf("F√°rmaco inexistente!\n\n");
 
         fclose(ArqFarma);
     }
     else
     {
-        printf("Arquivo vazio. N„o existem dados a excluir.\n");
+        printf("Arquivo vazio. N√£o existem dados a excluir.\n");
     }
     system("pause");
     return;
@@ -148,7 +156,7 @@ void Alterar()
         return;
     }
 
-    printf("Qual f·rmaco deseja alterar? ");
+    printf("Qual f√°rmaco deseja alterar? ");
     char Farmaco[21];
     fflush(stdin);
     scanf(" %[^\n]", Farmaco);
@@ -162,7 +170,7 @@ void Alterar()
         if (strcmp(RgFarma.Nome, Farmaco) == 0 && RgFarma.Preco > 0)
         {
             Achou = 1;
-            printf("Deseja alterar o nome? (S-Sim / N-N„o): ");
+            printf("Deseja alterar o nome? (S-Sim / N-N√£o): ");
             scanf(" %c", &opcao);
             system ("cls");
             opcao = toupper(opcao);
@@ -173,18 +181,18 @@ void Alterar()
                 system ("cls");
             }
 
-            printf("Deseja alterar o preÁo? (S-Sim / N-N„o): ");
+            printf("Deseja alterar o pre√ßo? (S-Sim / N-N√£o): ");
             scanf(" %c", &opcao);
             system ("cls");
             opcao = toupper(opcao);
             if (opcao == 'S') 
             {
-                printf("Digite o novo preÁo: ");
+                printf("Digite o novo pre√ßo: ");
                 scanf("%f", &RgFarma.Preco);
                 system ("cls");
             }
 
-            printf("Deseja alterar a quantidade em estoque? (S-Sim / N-N„o): ");
+            printf("Deseja alterar a quantidade em estoque? (S-Sim / N-N√£o): ");
             scanf(" %c", &opcao);
             system ("cls");
             opcao = toupper(opcao);
@@ -197,13 +205,13 @@ void Alterar()
 
             fseek(ArqFarma, -Tamanho, SEEK_CUR);
             fwrite(&RgFarma, Tamanho, 1, ArqFarma);
-            printf("\nALTERA«’ES REALIZADAS COM SUCESSO!\n\n");
+            printf("\nALTERA√á√ïES REALIZADAS COM SUCESSO!\n\n");
             break;
         }
     }
 
     if (Achou == 0) {
-        printf("\nF·rmaco n„o encontrado!\n\n");
+        printf("\nF√°rmaco n√£o encontrado!\n\n");
     }
     
     fclose(ArqFarma);
@@ -224,7 +232,7 @@ void Consultar()
         return;
     }
 
-    printf("Qual f·rmaco deseja consultar? ");
+    printf("Qual f√°rmaco deseja consultar? ");
     char Farmaco[21];
     fflush(stdin);
     scanf(" %[^\n]", Farmaco);
@@ -238,13 +246,13 @@ void Consultar()
             printf("Nome: %s\n", RgFarma.Nome);
             printf("Valor: R$%.2f\n", RgFarma.Preco);
             printf("Estoque: %d\n", RgFarma.QEstoque);
-            break; // Sai do loop assim que encontrar o f·rmaco
+            break; // Sai do loop assim que encontrar o f√°rmaco
         }
     }
 
     if (Achou == 0)
     {
-        printf("F·rmaco n„o encontrado!\n\n");
+        printf("F√°rmaco n√£o encontrado!\n\n");
     }
 
     fclose(ArqFarma);
@@ -265,12 +273,12 @@ void ListarTodos()
         return;
     }
 
-    // Verificar se o arquivo est· vazio
+    // Verificar se o arquivo est√° vazio
     fseek(ArqFarma, 0, SEEK_END);
     long int tamanhoArquivo = ftell(ArqFarma);
     if (tamanhoArquivo == 0)
     {
-        printf("Arquivo vazio. Nenhum f·rmaco cadastrado.\n");
+        printf("Arquivo vazio. Nenhum f√°rmaco cadastrado.\n");
         fclose(ArqFarma);
         system("pause");
         return;
@@ -279,7 +287,7 @@ void ListarTodos()
     fseek(ArqFarma, 0, SEEK_SET);
     while (fread(&RgFarma, Tamanho, 1, ArqFarma) == 1)
     {
-        if (RgFarma.Preco > 0) // Verificar se n„o È um registro excluÌdo logicamente
+        if (RgFarma.Preco > 0) // Verificar se n√£o √© um registro exclu√≠do logicamente
         {
             printf("Nome: %s\n", RgFarma.Nome);
             printf("Valor: R$%.2f\n", RgFarma.Preco);
@@ -309,7 +317,7 @@ int main() {
         printf("C - Consultar \n");
         printf("T - Listar Todos \n");
         printf("S - Sair \n\n");
-        printf ("Selecione a opÁ„o:");
+        printf ("Selecione a op√ß√£o:");
         scanf(" %c", &Opcao);
         Opcao = toupper(Opcao);
         switch (Opcao)
@@ -332,7 +340,7 @@ int main() {
         case 'S':
             break;
         default:
-            printf("Opc„o inv·lida\n");
+            printf("Opc√£o inv√°lida\n");
             system ("pause");
             break;
         }
