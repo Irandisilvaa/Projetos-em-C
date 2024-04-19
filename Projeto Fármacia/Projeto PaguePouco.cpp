@@ -3,9 +3,8 @@ Ele permite incluir, excluir, alterar, consultar e listar fármacos, armazenando
 As informações de cada fármaco incluem nome, preço e quantidade em estoque. 
 O programa oferece um menu interativo para o usuário escolher entre as operações disponíveis. 
 As entradas são validadas e há verificações para evitar duplicatas de fármacos durante a inclusão e para marcar registros logicamente excluídos.
-
-
 */
+
 #include <stdio.h>
 #include <stdlib.h>  
 #include <ctype.h> 
