@@ -1,10 +1,13 @@
-#include <stdio.h>
+// Declaração das bibliotecas necessárias
+//#include <stdio.h> // Comentado porque já está incluído
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
 
+// Declaração da matriz que representa o tabuleiro do jogo
 char matriz[3][3];
 
+// Função para preencher a matriz com espaços em branco
 void preencherMatriz() {
     int linha, coluna;
     for (linha = 0; linha < 3; linha++) {
@@ -14,6 +17,7 @@ void preencherMatriz() {
     }
 }
 
+// Função para imprimir o tabuleiro atual
 void imprimirMatriz() {
     printf("\n");
     printf("      1     2     3\n");
@@ -28,6 +32,7 @@ void imprimirMatriz() {
     printf("        |     |     \n");
 }
 
+// Função para verificar se um jogador ganhou em uma linha específica
 int ganhaJogoPorLinha(int l, char c) {
     int cont = 0;
     for (int coluna = 0; coluna < 3; coluna++) {
@@ -38,6 +43,7 @@ int ganhaJogoPorLinha(int l, char c) {
     return (cont == 3);
 }
 
+// Função para verificar se um jogador ganhou em alguma linha
 int vitoriaPorLinhas(char c) {
     for (int linha = 0; linha < 3; linha++) {
         if (ganhaJogoPorLinha(linha, c)) {
@@ -47,6 +53,7 @@ int vitoriaPorLinhas(char c) {
     return 0;
 }
 
+// Função para verificar se um jogador ganhou em alguma coluna
 int ganhaJogoPorColuna(int n, char c) {
     int cont = 0;
     for (int linha = 0; linha < 3; linha++) {
@@ -57,6 +64,7 @@ int ganhaJogoPorColuna(int n, char c) {
     return (cont == 3);
 }
 
+// Função para verificar se um jogador ganhou em alguma coluna
 int vitoriaPorColunas(char c) {
     for (int coluna = 0; coluna < 3; coluna++) {
         if (ganhaJogoPorColuna(coluna, c)) {
@@ -66,30 +74,35 @@ int vitoriaPorColunas(char c) {
     return 0;
 }
 
+// Função para verificar se um jogador ganhou na diagonal principal
 int ganhaPorDiagonalPrincipal(char c) {
     return (matriz[0][0] == c && matriz[1][1] == c && matriz[2][2] == c);
 }
 
+// Função para verificar se um jogador ganhou na diagonal secundária
 int ganhaPorDiagonalSecundaria(char c) {
     return (matriz[0][2] == c && matriz[1][1] == c && matriz[2][0] == c);
 }
 
+// Função para verificar se uma coordenada é válida para a jogada
 int verificaCoordenada(int linha, int coluna) {
     return (linha >= 1 && linha <= 3 && coluna >= 1 && coluna <= 3 && matriz[linha - 1][coluna - 1] == ' ');
 }
 
+// Função para ler as coordenadas da jogada do jogador
 void lerCoordenadas(char j) {
     int linha, coluna;
-    printf("\nDigite a linha e a coluna que voc� quer jogar: ");
+    printf("\nDigite a linha e a coluna que você quer jogar: ");
     scanf("%d%d", &linha, &coluna);
 
     while (!verificaCoordenada(linha, coluna)) {
-        printf("Op��o inv�lida! Digite novamente: ");
+        printf("Opção inválida! Digite novamente: ");
         scanf("%d%d", &linha, &coluna);
     }
     matriz[linha - 1][coluna - 1] = j;
 }
 
+// Função para verificar se houve empate no jogo
 int empate() {
     for (int linha = 0; linha < 3; linha++) {
         for (int coluna = 0; coluna < 3; coluna++) {
@@ -101,6 +114,7 @@ int empate() {
     return 1;
 }
 
+// Função principal do jogo
 void jogar() {
     int opJogador = 1;
     char jogador1 = 'X', jogador2 = 'O';
@@ -134,20 +148,24 @@ void jogar() {
     }
 }
 
+// Função principal do programa
 int main() {
     int opcao;
-        setlocale(LC_ALL, "Portuguese");
+    // Configura a localidade para Português
+    setlocale(LC_ALL, "Portuguese");
+
     do {
         preencherMatriz();
         jogar();
-        printf("\nDeseja jogar novamente?\n1 - Sim\n2 - N�o\n");
+        printf("\nDeseja jogar novamente?\n1 - Sim\n2 - Não\n");
         scanf("%d", &opcao);
         while (opcao < 1 || opcao > 2) {
-            printf("Op��o inv�lida!\n");
-            printf("Deseja jogar novamente?\n1 - Sim\n2 - N�o\n");
+            printf("Opção inválida!\n");
+            printf("Deseja jogar novamente?\n1 - Sim\n2 - Não\n");
             scanf("%d", &opcao);
         }
     } while (opcao != 2);
-    printf ("Encerrando programa");
+
+    printf("Encerrando programa\n");
     return 0;
 }
