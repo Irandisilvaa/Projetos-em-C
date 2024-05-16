@@ -1,3 +1,12 @@
+/*Este programa implementa um jogo da velha em C. Ele utiliza uma matriz 3x3 para representar o tabuleiro do jogo 
+e permite que dois jogadores joguem alternadamente. 
+O programa verifica se um jogador ganhou em linhas, colunas ou diagonais,
+além de detectar empates. Após cada jogada, o tabuleiro é impresso e 
+os jogadores são solicitados a inserir suas coordenadas. 
+O jogo continua até que um jogador vença ou ocorra um empate.
+O código está devidamente comentado para facilitar a compreensão.
+Lembrando que tudo acontece via terminal sem o uso de interface gráfica
+*/
 
 #include <stdio.h> 
 #include <stdlib.h>
