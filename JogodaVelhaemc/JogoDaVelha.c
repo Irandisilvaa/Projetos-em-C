@@ -1,5 +1,5 @@
-// Declaração das bibliotecas necessárias
-//#include <stdio.h> // Comentado porque já está incluído
+
+#include <stdio.h> 
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
